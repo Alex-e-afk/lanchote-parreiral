@@ -1,0 +1,775 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lanchonete & Armazém Parreiral</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --color-wood: #8B4513;
+            --color-light-wood: #D2B48C;
+            --color-dark-wood: #5D4037;
+            --color-accent: #A52A2A;
+            --color-cream: #FFF8E1;
+            --color-dark: #3E2723;
+            --color-green: #2E7D32;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: var(--color-cream);
+            color: var(--color-dark);
+            line-height: 1.6;
+            background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%239C92AC' fill-opacity='0.1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        /* Header */
+        header {
+            text-align: center;
+            padding: 25px 0;
+            margin-bottom: 30px;
+            background: linear-gradient(to right, var(--color-dark-wood), var(--color-wood));
+            border-radius: 10px;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+            color: white;
+            position: relative;
+            overflow: hidden;
+            border: 2px solid var(--color-light-wood);
+        }
+        
+        header::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: url("data:image/svg+xml,%3Csvg width='20' height='20' viewBox='0 0 20 20' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23ffffff' fill-opacity='0.05' fill-rule='evenodd'%3E%3Ccircle cx='3' cy='3' r='3'/%3E%3Ccircle cx='13' cy='13' r='3'/%3E%3C/g%3E%3C/svg%3E");
+            z-index: 1;
+        }
+        
+        header h1 {
+            font-size: 2.8rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+            margin-bottom: 15px;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .tagline {
+            font-style: italic;
+            margin-bottom: 15px;
+            position: relative;
+            z-index: 2;
+            font-size: 1.2rem;
+        }
+        
+        .contact-info {
+            margin: 20px 0;
+            font-size: 1.1rem;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .contact-info a {
+            color: white;
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+        
+        .contact-info a:hover {
+            color: var(--color-light-wood);
+            text-decoration: underline;
+        }
+        
+        /* Menu Categories */
+        .menu-category {
+            margin-bottom: 40px;
+            background-color: rgba(255, 255, 255, 0.95);
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            border-left: 5px solid var(--color-wood);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .menu-category::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            right: 0;
+            border-left: 20px solid transparent;
+            border-top: 20px solid var(--color-light-wood);
+        }
+        
+        .menu-category h2 {
+            color: var(--color-wood);
+            border-bottom: 2px solid var(--color-light-wood);
+            padding-bottom: 12px;
+            margin-bottom: 25px;
+            font-size: 1.8rem;
+            display: flex;
+            align-items: center;
+        }
+        
+        .menu-category h2 i {
+            margin-right: 10px;
+            color: var(--color-accent);
+        }
+        
+        .menu-items {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+        }
+        
+        .menu-item {
+            padding: 15px;
+            border-radius: 8px;
+            background: rgba(210, 180, 140, 0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+            border: 1px solid transparent;
+        }
+        
+        .menu-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+            border-color: var(--color-light-wood);
+            background: rgba(210, 180, 140, 0.2);
+        }
+        
+        .menu-item-name {
+            font-weight: bold;
+            font-size: 1.1rem;
+            color: var(--color-dark-wood);
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 5px;
+        }
+        
+        .menu-item-price {
+            color: var(--color-accent);
+            font-weight: bold;
+        }
+        
+        .menu-item-description {
+            font-size: 0.9rem;
+            color: #666;
+        }
+        
+        /* WhatsApp Button */
+        .whatsapp-float {
+            position: fixed;
+            width: 60px;
+            height: 60px;
+            bottom: 25px;
+            right: 25px;
+            background-color: #25d366;
+            color: white;
+            border-radius: 50px;
+            text-align: center;
+            font-size: 30px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+            z-index: 100;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s;
+            animation: pulse 1.5s infinite;
+        }
+        
+        .whatsapp-float:hover {
+            background-color: #128C7E;
+            transform: scale(1.1);
+            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.3);
+        }
+        
+        @keyframes pulse {
+            0% {
+                box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.7);
+            }
+            70% {
+                box-shadow: 0 0 0 10px rgba(37, 211, 102, 0);
+            }
+            100% {
+                box-shadow: 0 0 0 0 rgba(37, 211, 102, 0);
+            }
+        }
+        
+        /* Footer */
+        footer {
+            text-align: center;
+            margin-top: 50px;
+            padding: 30px;
+            background: linear-gradient(to right, var(--color-dark-wood), var(--color-wood));
+            border-radius: 10px;
+            color: white;
+            box-shadow: 0 -4px 12px rgba(0, 0, 0, 0.1);
+        }
+        
+        footer p {
+            margin: 10px 0;
+        }
+        
+        .social-links {
+            margin-top: 15px;
+        }
+        
+        .social-links a {
+            color: white;
+            font-size: 1.5rem;
+            margin: 0 10px;
+            transition: all 0.3s;
+        }
+        
+        .social-links a:hover {
+            color: var(--color-light-wood);
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 2.2rem;
+            }
+            
+            .menu-items {
+                grid-template-columns: 1fr;
+            }
+            
+            .menu-item:hover {
+                transform: none;
+            }
+            
+            .whatsapp-float {
+                width: 50px;
+                height: 50px;
+                bottom: 20px;
+                right: 20px;
+                font-size: 24px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>LANCHONETE & ARMAZÉM PARREIRAL</h1>
+            <p class="tagline">Sabor caseiro no coração de Sapucaí Mirim</p>
+            <div class="contact-info">
+                <p><i class="fas fa-map-marker-alt"></i> Bairro Santa Luzia, Zona Rural, Sapucaí Mirim - MG</p>
+                <p><i class="fas fa-phone"></i> <a href="tel:35997811837">(35) 99781-1837</a></p>
+            </div>
+        </header>
+        
+        <main>
+            <section class="menu-category">
+                <h2><i class="fas fa-hamburger"></i> LANCHES</h2>
+                <div class="menu-items">
+                    <div class="menu-item">
+                        <div class="menu-item-name">
+                            <span>Bauru</span>
+                            <span class="menu-item-price">R$ 13,00</span>
+                        </div>
+                    </div>
+                    <div class="menu-item">
+                        <div class="menu-item-name">
+                            <span>Americano</span>
+                            <span class="menu-item-price">R$ 16,00</span>
+                        </div>
+                    </div>
+                    <div class="menu-item">
+                        <div class="menu-item-name">
+                            <span>Misto Quente</span>
+                            <span class="menu-item-price">R$ 10,00</span>
+                        </div>
+                    </div>
+                    <div class="menu-item">
+                        <div class="menu-item-name">
+                            <span>X-Burguer</span>
+                            <span class="menu-item-price">R$ 13,00</span>
+                        </div>
+                    </div>
+                    <div class="menu-item">
+                        <div class="menu-item-name">
+                            <span>X-Salada</span>
+                            <span class="menu-item-price">R$ 15,00</span>
+                        </div>
+                    </div>
+                    <div class="menu-item">
+                        <div class="menu-item-name">
+                            <span>X-Egg Salada</span>
+                            <span class="menu-item-price">R$ 18,00</span>
+                        </div>
+                    </div>
+                    <div class="menu-item">
+                        <div class="menu-item-name">
+                            <span>X-Bacon Salada</span>
+                            <span class="menu-item-price">R$ 20,00</span>
+                        </div>
+                    </div>
+                    <div class="menu-item">
+                        <div class="menu-item-name">
+                            <span>X-Egg Bacon</span>
+                            <span class="menu-item-price">R$ 22,00</span>
+                        </div>
+                    </div>
+                    <div class="menu-item">
+                        <div class="menu-item-name">
+                            <span>X-Egg Calabresa Salada</span>
+                            <span class="menu-item-price">R$ 24,00</span>
+                        </div>
+                    </div>
+                    <div class="menu-item">
+                        <div class="menu-item-name">
+                            <span>X-Egg Frango Salada</span>
+                            <span class="menu-item-price">R$ 24,00</span>
+                        </div>
+                    </div>
+                    <div class="menu-item">
+                        <div class="menu-item-name">
+                            <span>X-Calabresa Salada</span>
+                            <span class="menu-item-price">R$ 20,00</span>
+                        </div>
+                    </div>
+                    <div class="menu-item">
+                        <div class="menu-item-name">
+                            <span>X-Calabacon Salada</span>
+                            <span class="menu-item-price">R$ 24,00</span>
+                        </div>
+                    </div>
+                    <div class="menu-item">
+                        <div class="menu-item-name">
+                            <span>Calafrango Salada</span>
+                            <span class="menu-item-price">R$ 24,00</span>
+                        </div>
+                    </div>
+                    <div class="menu-item">
+                        <div class="menu-item-name">
+                            <span>Frango Bacon Salada</span>
+                            <span class="menu-item-price">R$ 22,00</span>
+                        </div>
+                    </div>
+                    <div class="menu-item">
+                        <div class="menu-item-name">
+                            <span>Frango Salada</span>
+                            <span class="menu-item-price">R$ 20,00</span>
+                        </div>
+                    </div>
+                    <div class="menu-item">
+                        <div class="menu-item-name">
+                            <span>X-Parreiral</span>
+                            <span class="menu-item-price">R$ 28,00</span>
+                        </div>
+                    </div>
+                    <div class="menu-item">
+                        <div class="menu-item-name">
+                            <span>X-Tudo</span>
+                            <span class="menu-item-price">R$ 60,00</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <section class="menu-category">
+                <h2><i class="fas fa-plus-circle"></i> ADICIONAIS (Lanches)</h2>
+                <div class="menu-items">
+                    <div class="menu-item">
+                        <div class="menu-item-name">
+                            <span>Hambúrguer</span>
+                            <span class="menu-item-price">R$ 4,00</span>
+                        </div>
+                    </div>
+                    <div class="menu-item">
+                        <div class="menu-item-name">
+                            <span>Hambúrguer Artesanal</span>
+                            <span class="menu-item-price">R$ 7,00</span>
+                        </div>
+                    </div>
+                    <div class="menu-item">
+                        <div class="menu-item-name">
+                            <span>Cheddar</span>
+                            <span class="menu-item-price">R$ 4,00</span>
+                        </div>
+                    </div>
+                    <div class="menu-item">
+                        <div class="menu-item-name">
+                            <span>Catupiry</span>
+                            <span class="menu-item-price">R$ 4,00</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <section class="menu-category">
+                <h2><i class="fas fa-drumstick-bite"></i> PORÇÕES</h2>
+                <div class="menu-items">
+                    <div class="menu-item">
+                        <div class="menu-item-name">
+                            <span>Batata Frita</span>
+                            <span class="menu-item-price">R$ 18,00 / R$ 27,00</span>
+                        </div>
+                        <div class="menu-item-description">Meia / Inteira</div>
+                    </div>
+                    <div class="menu-item">
+                        <div class="menu-item-name">
+                            <span>Batata Frita Completa</span>
+                            <span class="menu-item-price">R$ 25,00 / R$ 40,00</span>
+                        </div>
+                        <div class="menu-item-description">Meia / Inteira</div>
+                    </div>
+                    <div class="menu-item">
+                        <div class="menu-item-name">
+                            <span>Calabresa Acebolada</span>
+                            <span class="menu-item-price">R$ 22,00 / R$ 35,00</span>
+                        </div>
+                        <div class="menu-item-description">Meia / Inteira</div>
+                    </div>
+                    <div class="menu-item">
+                        <div class="menu-item-name">
+                            <span>Contra Filé Acebolado</span>
+                            <span class="menu-item-price">R$ 40,00 / R$ 65,00</span>
+                        </div>
+                        <div class="menu-item-description">Meia / Inteira</div>
+                    </div>
+                    <div class="menu-item">
+                        <div class="menu-item-name">
+                            <span>Filé de Tilápia</span>
+                            <span class="menu-item-price">R$ 40,00 / R$ 65,00</span>
+                        </div>
+                        <div class="menu-item-description">Meia / Inteira</div>
+                    </div>
+                    <div class="menu-item">
+                        <div class="menu-item-name">
+                            <span>Filé de Truta</span>
+                            <span class="menu-item-price">R$ 40,00 / R$ 75,00</span>
+                        </div>
+                        <div class="menu-item-description">Meia / Inteira</div>
+                    </div>
+                    <div class="menu-item">
+                        <div class="menu-item-name">
+                            <span>Costelinha de Porco</span>
+                            <span class="menu-item-price">R$ 25,00 / R$ 45,00</span>
+                        </div>
+                        <div class="menu-item-description">Meia / Inteira</div>
+                    </div>
+                    <div class="menu-item">
+                        <div class="menu-item-name">
+                            <span>Línguíça da Roça</span>
+                            <span class="menu-item-price">R$ 30,00 / R$ 40,00</span>
+                        </div>
+                        <div class="menu-item-description">Meia / Inteira</div>
+                    </div>
+                    <div class="menu-item">
+                        <div class="menu-item-name">
+                            <span>Frios (Mussarela, presunto e salame)</span>
+                            <span class="menu-item-price">R$ 25,00 / R$ 40,00</span>
+                        </div>
+                        <div class="menu-item-description">Meia / Inteira</div>
+                    </div>
+                </div>
+            </section>
+            
+            <section class="menu-category">
+                <h2><i class="fas fa-cheese"></i> ADICIONAIS (Porções)</h2>
+                <div class="menu-items">
+                    <div class="menu-item">
+                        <div class="menu-item-name">
+                            <span>Cheddar</span>
+                            <span class="menu-item-price">R$ 4,00</span>
+                        </div>
+                    </div>
+                    <div class="menu-item">
+                        <div class="menu-item-name">
+                            <span>Queijo</span>
+                            <span class="menu-item-price">R$ 4,00</span>
+                        </div>
+                    </div>
+                    <div class="menu-item">
+                        <div class="menu-item-name">
+                            <span>Bacon</span>
+                            <span class="menu-item-price">R$ 5,00</span>
+                        </div>
+                    </div>
+                    <div class="menu-item">
+                        <div class="menu-item-name">
+                            <span>Catupiry</span>
+                            <span class="menu-item-price">R$ 4,00</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <section class="menu-category">
+                <h2><i class="fas fa-glass-whiskey"></i> BEBIDAS</h2>
+                <div class="menu-items">
+                    <div class="menu-item">
+                        <div class="menu-item-name">
+                            <span>Água</span>
+                            <span class="menu-item-price">R$ 2,00</span>
+                        </div>
+                    </div>
+                    <div class="menu-item">
+                        <div class="menu-item-name">
+                            <span>Água com gás</span>
+                            <span class="menu-item-price">R$ 3,00</span>
+                        </div>
+                    </div>
+                    <div class="menu-item">
+                        <div class="menu-item-name">
+                            <span>Água de coco</span>
+                            <span class="menu-item-price">R$ 5,00</span>
+                        </div>
+                    </div>
+                    <div class="menu-item">
+                        <div class="menu-item-name">
+                            <span>H2O</span>
+                            <span class="menu-item-price">R$ 6,00</span>
+                        </div>
+                    </div>
+                    <div class="menu-item">
+                        <div class="menu-item-name">
+                            <span>Gatorade</span>
+                            <span class="menu-item-price">R$ 8,00</span>
+                        </div>
+                    </div>
+                    <div class="menu-item">
+                        <div class="menu-item-name">
+                            <span>Refrigerante lata</span>
+                            <span class="menu-item-price">R$ 6,00</span>
+                        </div>
+                    </div>
+                    <div class="menu-item">
+                        <div class="menu-item-name">
+                            <span>Refrigerante 2L</span>
+                            <span class="menu-item-price">R$ 6,50</span>
+                        </div>
+                    </div>
+                    <div class="menu-item">
+                        <div class="menu-item-name">
+                            <span>Coca Cola 2L</span>
+                            <span class="menu-item-price">R$ 14,00</span>
+                        </div>
+                    </div>
+                    <div class="menu-item">
+                        <div class="menu-item-name">
+                            <span>Coca Cola 600ml</span>
+                            <span class="menu-item-price">R$ 8,00</span>
+                        </div>
+                    </div>
+                    <div class="menu-item">
+                        <div class="menu-item-name">
+                            <span>Guaraná 600ml</span>
+                            <span class="menu-item-price">R$ (consulte)</span>
+                        </div>
+                    </div>
+                    <div class="menu-item">
+                        <div class="menu-item-name">
+                            <span>Ks</span>
+                            <span class="menu-item-price">R$ 5,00</span>
+                        </div>
+                    </div>
+                    <div class="menu-item">
+                        <div class="menu-item-name">
+                            <span>Caçulinha</span>
+                            <span class="menu-item-price">R$ 3,00</span>
+                        </div>
+                    </div>
+                    <div class="menu-item">
+                        <div class="menu-item-name">
+                            <span>Suco Del Valle lata</span>
+                            <span class="menu-item-price">R$ 6,00</span>
+                        </div>
+                    </div>
+                    <div class="menu-item">
+                        <div class="menu-item-name">
+                            <span>Suco Natural (Maracujá, abacaxi com hortelã, abacaxi)</span>
+                            <span class="menu-item-price">R$ 10,00</span>
+                        </div>
+                    </div>
+                    <div class="menu-item">
+                        <div class="menu-item-name">
+                            <span>Suco Natural de Laranja</span>
+                            <span class="menu-item-price">R$ 12,00</span>
+                        </div>
+                    </div>
+                    <div class="menu-item">
+                        <div class="menu-item-name">
+                            <span>Energético</span>
+                            <span class="menu-item-price">R$ 10,00</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <section class="menu-category">
+                <h2><i class="fas fa-wine-bottle"></i> CERVEJAS E VINHOS</h2>
+                <div class="menu-items">
+                    <div class="menu-item">
+                        <div class="menu-item-name">
+                            <span>Cerveja lata (Skol, Original, Brahma)</span>
+                            <span class="menu-item-price">R$ 6,00</span>
+                        </div>
+                    </div>
+                    <div class="menu-item">
+                        <div class="menu-item-name">
+                            <span>Cerveja lata (Heineken, Budweiser)</span>
+                            <span class="menu-item-price">R$ 7,00</span>
+                        </div>
+                    </div>
+                    <div class="menu-item">
+                        <div class="menu-item-name">
+                            <span>Itaipava lata</span>
+                            <span class="menu-item-price">R$ 4,00</span>
+                        </div>
+                    </div>
+                    <div class="menu-item">
+                        <div class="menu-item-name">
+                            <span>Long Neck</span>
+                            <span class="menu-item-price">R$ 10,00</span>
+                        </div>
+                    </div>
+                    <div class="menu-item">
+                        <div class="menu-item-name">
+                            <span>Heineken 600ml</span>
+                            <span class="menu-item-price">R$ 14,00</span>
+                        </div>
+                    </div>
+                    <div class="menu-item">
+                        <div class="menu-item-name">
+                            <span>Original 600ml</span>
+                            <span class="menu-item-price">R$ 12,00</span>
+                        </div>
+                    </div>
+                    <div class="menu-item">
+                        <div class="menu-item-name">
+                            <span>Skol 600ml</span>
+                            <span class="menu-item-price">R$ 11,00</span>
+                        </div>
+                    </div>
+                    <div class="menu-item">
+                        <div class="menu-item-name">
+                            <span>Brahma 600ml</span>
+                            <span class="menu-item-price">R$ 12,00</span>
+                        </div>
+                    </div>
+                    <div class="menu-item">
+                        <div class="menu-item-name">
+                            <span>Itaipava 600ml</span>
+                            <span class="menu-item-price">R$ 9,00</span>
+                        </div>
+                    </div>
+                    <div class="menu-item">
+                        <div class="menu-item-name">
+                            <span>Taça de Vinho Seco</span>
+                            <span class="menu-item-price">R$ 15,00</span>
+                        </div>
+                    </div>
+                    <div class="menu-item">
+                        <div class="menu-item-name">
+                            <span>Taça de Vinho Suave</span>
+                            <span class="menu-item-price">R$ 15,00</span>
+                        </div>
+                    </div>
+                    <div class="menu-item">
+                        <div class="menu-item-name">
+                            <span>Taça de Vinho de Morango</span>
+                            <span class="menu-item-price">R$ 12,00</span>
+                        </div>
+                    </div>
+                    <div class="menu-item">
+                        <div class="menu-item-name">
+                            <span>Jurupinga</span>
+                            <span class="menu-item-price">R$ 10,00</span>
+                        </div>
+                    </div>
+                    <div class="menu-item">
+                        <div class="menu-item-name">
+                            <span>Chopp de Vinho</span>
+                            <span class="menu-item-price">R$ 11,00</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+        
+        <footer>
+            <p>LANCHONETE & ARMAZÉM PARREIRAL</p>
+            <p><i class="fas fa-map-marker-alt"></i> Bairro Santa Luzia, Zona Rural, Sapucaí Mirim - MG</p>
+            <p><i class="fas fa-phone"></i> (35) 99781-1837</p>
+            <div class="social-links">
+                <a href="https://wa.me/5535997811837?text=Olá! Gostaria de fazer um pedido." target="_blank" title="WhatsApp">
+                    <i class="fab fa-whatsapp"></i>
+                </a>
+                <a href="https://www.instagram.com/explore/search/keyword/?q=lanchonete%20parreiral" target="_blank" title="Instagram">
+                    <i class="fab fa-instagram"></i>
+                </a>
+                <a href="https://www.facebook.com/search/top?q=lanchonete%20parreiral" target="_blank" title="Facebook">
+                    <i class="fab fa-facebook"></i>
+                </a>
+            </div>
+        </footer>
+    </div>
+
+    <!-- WhatsApp Float Button -->
+    <a href="https://wa.me/5535997811837?text=Olá! Gostaria de fazer um pedido." class="whatsapp-float" target="_blank">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+
+    <script>
+        // JavaScript para melhorar a experiência do usuário
+        document.addEventListener('DOMContentLoaded', function() {
+            // Adiciona classe para animação suave ao rolar
+            const menuItems = document.querySelectorAll('.menu-item');
+            
+            menuItems.forEach((item, index) => {
+                // Adiciona um pequeno atraso para criar um efeito sequencial
+                item.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+                item.style.opacity = '0';
+                item.style.transform = 'translateY(20px)';
+                
+                setTimeout(() => {
+                    item.style.opacity = '1';
+                    item.style.transform = 'translateY(0)';
+                }, 100 + (index * 30));
+            });
+            
+            // Adiciona funcionalidade de clique para expandir itens (opcional)
+            menuItems.forEach(item => {
+                item.addEventListener('click', function() {
+                    this.classList.toggle('expanded');
+                });
+            });
+            
+            // Adiciona efeito de digitação no título
+            const title = document.querySelector('header h1');
+            const originalText = title.textContent;
+            title.textContent = '';
+            let i = 0;
+            
+            function typeWriter() {
+                if (i < originalText.length) {
+                    title.textContent += originalText.charAt(i);
+                    i++;
+                    setTimeout(typeWriter, 100);
+                }
+            }
+            
+            typeWriter();
+        });
+    </script>
+</body>
+</html>
